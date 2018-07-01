@@ -1,0 +1,17 @@
+{
+  "name": "mmNodeApi",
+  "version": "1.0.0",
+  "description": "node music api",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "maomao1996 <1714487678@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "big-integer": "^1.6.32",
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0"
+  }
+}
