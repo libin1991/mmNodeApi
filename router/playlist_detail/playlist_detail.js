@@ -24,15 +24,10 @@ module.exports = async (ctx, next) => {
         })
         await axios.qq('https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg', 'get', params).then(res => {
             if (res.code === QQ.HTTP_OK) {
-                try {
-                    console.log(formatData)
-                    const data = httpFormat === 'open' ? formatData(res.cdlist[0], 'QQ') : res.cdlist[0];
-                    ctx.response.body = {
-                        data,
-                        ...QQ.mmConfig
-                    }
-                } catch (error) {
-                    console.log(error)
+                const data = httpFormat === 'open' ? formatData(res.cdlist[0], 'QQ') : res.cdlist[0];
+                ctx.response.body = {
+                    data,
+                    ...QQ.mmConfig
                 }
             } else {
                 ctx.response.body = res

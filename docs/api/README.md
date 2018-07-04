@@ -15,7 +15,7 @@
 
 ##### 调用例子: `/banner`
 
-![调用例子](/banner.png)
+![调用例子](/images/banner.png)
 
 ##### 支持平台: 网易云音乐、QQ音乐
 
@@ -36,7 +36,7 @@
 
 ##### 调用例子: `/toplist`
 
-![调用例子](/toplist.png)
+![调用例子](/images/toplist.png)
 
 ##### 支持平台: 网易云音乐、QQ音乐
 
@@ -58,7 +58,35 @@
 
 ##### 调用例子: `/toplist/detail?id=4&musicType=QQ`
 
-<!-- ![调用例子](/toplist_detail.png) -->
+![调用例子](/images/toplist_detail.png)
+
+##### 支持平台: 网易云音乐、QQ音乐
+
+##### 更新日期: 2018.07.04
+
+## 分类歌单
+
+获取歌单列表
+
+##### 参数
+
+| 字段 | 默认值 | 可选值 | 是否必传 | 说明 |
+| :------------ | :------------ | :------------ | :------------ | :------------ |
+| `order` | `163` | `hot` / `new` | `false` | 音乐平台 |
+| `limit` | `20` |  | `false` | 返回数量 |
+| `offset` | `0` |  | `false` | 偏移数量，用于分页 |
+| `musicType` | `163` | `163` / `QQ` | `false` | 音乐平台 |
+| `format` | `open` | `open` / `close` | `false` | 接口格式化 |
+
+注：
+* `order`：`hot` 网易为热门 / QQ为推荐； `new` 最新
+* 分页：( 页数 -1)*30, 其中 30 为 limit 的值
+
+##### 接口地址: `/toplist`
+
+##### 调用例子: `/toplist`
+
+![调用例子](/images/playlist.png)
 
 ##### 支持平台: 网易云音乐、QQ音乐
 
@@ -80,7 +108,7 @@
 
 ##### 调用例子: `/playlist/detail?id=3778678&musicType=163`
 
-![调用例子](/playlist_detail.png)
+![调用例子](/images/playlist_detail.png)
 
 ##### 支持平台: 网易云音乐、QQ音乐
 

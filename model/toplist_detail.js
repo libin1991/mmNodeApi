@@ -38,15 +38,15 @@ function formatTopListDetail(data) {
     return new PlayListDetail({
         id: Number(data.topinfo.topID),
         name: data.topinfo.ListName,
-        avatar: null,
-        coverImgUrl: data.topinfo.pic,
+        creator: null,
+        pic: data.topinfo.pic,
         createTime: null,
         updateTime: data.update_time,
         desc: data.topinfo.info,
-        songnum: data.total_song_num,
-        playCount: null,
-        shareCount: null,
-        commentCount: data.comment_num,
+        songNum: data.total_song_num,
+        playNum: null,
+        shareNumt: null,
+        commentNum: data.comment_num,
         songList: formatSongs(data.songlist)
     })
 }

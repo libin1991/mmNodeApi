@@ -9,7 +9,7 @@ class Song {
         name,
         singer,
         album,
-        image,
+        pic,
         duration,
         musicType
     }) {
@@ -18,7 +18,7 @@ class Song {
         this.name = name; //歌曲名称
         this.singer = singer; //歌手
         this.album = album; //专辑
-        this.image = image; //封面图
+        this.pic = pic; //封面图
         this.duration = duration; //时长
         this.musicType = musicType
     }
@@ -39,7 +39,7 @@ function createNeteaseSongs(music) {
         name: music.name,
         singer: music.ar.length > 0 && filterSinger(music.ar),
         album: music.al.name,
-        image: music.al.picUrl || null,
+        pic: music.al.picUrl || null,
         duration: music.dt / 1000,
         musicType: '163'
     })
@@ -52,7 +52,7 @@ function createQqSongs(music) {
         name: music.songname,
         singer: music.singer.length > 0 && filterSinger(music.singer),
         album: music.albumname,
-        image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${music.albummid}.jpg?max_age=2592000`,
+        pic: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${music.albummid}.jpg?max_age=2592000`,
         duration: music.interval,
         musicType: 'QQ'
     })

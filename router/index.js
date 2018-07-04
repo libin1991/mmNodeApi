@@ -9,6 +9,9 @@ router.get('/toplist', require('./toplist/toplist'))
 //排行榜详情
 router.get('/toplist/detail', require('./toplist_detail/toplist_detail'))
 
+//分类歌单
+router.get('/playlist', require('./playlist/playlist'))
+
 //歌单详情
 router.get('/playlist/detail', require('./playlist_detail/playlist_detail'))
 
