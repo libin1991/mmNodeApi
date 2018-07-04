@@ -23,7 +23,7 @@ const banner = async (ctx, next) => {
                     ...QQ.mmConfig
                 }
             } else {
-                ctx.response.body = config.notFound
+                ctx.response.body = res
             }
         }).catch(error => {
             ctx.response.body = config.notFound

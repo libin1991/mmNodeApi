@@ -6,5 +6,14 @@ router.get('/banner', require('./banner/banner'))
 //排行榜
 router.get('/toplist', require('./toplist/toplist'))
 
+//排行榜详情
+router.get('/toplist/detail', require('./toplist_detail/toplist_detail'))
+
+//歌单详情
+router.get('/playlist/detail', require('./playlist_detail/playlist_detail'))
+
+//搜索
+router.get('/search', require('./search/search'))
+
 
 module.exports = router

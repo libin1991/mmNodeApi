@@ -6,16 +6,20 @@ module.exports = {
         editLinks: true,
         nav: [
             {
-              text: 'API',
-              link: '/api/',
+                text: 'API',
+                link: '/api/'
             },
             {
-              text: 'GitHub',
-              link: 'https://github.com/maomao1996/mmNodeApi'
+                text: '在线音乐播放器（PC）',
+                link: 'http://music.mtnhao.com/#/music/playlist'
+            },
+            {
+                text: 'GitHub',
+                link: 'https://github.com/maomao1996/mmNodeApi'
             }
         ],
         sidebar: [
-            ['/', '介绍'],
+            ['/introduce/', '介绍'],
             ['/api/', 'API']
         ]
     }

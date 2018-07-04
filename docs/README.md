@@ -2,7 +2,7 @@
 home: true
 heroImage: /hero.jpg
 actionText: Get Started →
-actionLink: /api/
+actionLink: /introduce/
 footer: MIT Licensed | Copyright © 2018-present maomao1996
 ---
 

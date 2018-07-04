@@ -15,7 +15,7 @@ const notFound = {
 // 参数不全
 const notData = {
     message: '参数不全',
-    code: 404
+    code: 400
 }
 
 module.exports = {
