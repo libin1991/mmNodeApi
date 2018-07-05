@@ -9,7 +9,7 @@ const {
     filterSinger
 } = require('./song')
 
-function createQqSongs(music) {
+function createQqSongs (music) {
     const data = music.data;
     return new Song({
         id: data.songid,
@@ -24,7 +24,7 @@ function createQqSongs(music) {
 }
 
 // 歌曲数据格式化
-function formatSongs(data) {
+function formatSongs (data) {
     let Songs = [];
     data.forEach(item => {
         if (item.data.songid) {
@@ -34,7 +34,7 @@ function formatSongs(data) {
     return Songs
 }
 
-function formatTopListDetail(data) {
+function formatTopListDetail (data) {
     return new PlayListDetail({
         id: Number(data.topinfo.topID),
         name: data.topinfo.ListName,

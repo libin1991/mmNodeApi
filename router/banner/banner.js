@@ -7,8 +7,8 @@ const formatData = require('../../model/banner')
 // 轮播
 
 const banner = async (ctx, next) => {
-    const musicType = ctx.query.musicType || config.musicType,
-        httpFormat = ctx.query.format || config.format;
+    const musicType = ctx.query.musicType || config.musicType;
+    const httpFormat = ctx.query.format || config.format;
     if (musicType === QQ.mmConfig.musicType) {
         const params = Object.assign({}, QQ.commonParams, {
             platform: 'h5',
@@ -25,27 +25,25 @@ const banner = async (ctx, next) => {
             } else {
                 ctx.response.body = res
             }
-        }).catch(error => {
+        }).catch(() => {
             ctx.response.body = config.notFound
-            // console.log(e)
         })
     } else {
         await axios.netease('http://music.163.com/discover', 'get', null).then(res => {
             try {
                 const pattern = /<script[^>]*>\s*window\.Gbanners\s*=\s*([^;]+?);\s*<\/script>/g;
-                let data = eval(`(${pattern.exec(res)[1]})`)
+                let data = eval(`(${pattern.exec(res)[1]})`) // eslint-disable-line
                 data = httpFormat === 'open' ? formatData(data, '163') : data
                 ctx.response.body = {
                     data,
                     ...Netease.mmConfig
                 }
             } catch (error) {
-                // console.log(error)
+                console.log(error)
                 ctx.response.body = config.notFound
             }
-        }).catch(error => {
+        }).catch(() => {
             ctx.response.body = config.notFound
-            // console.log(e)
         })
     }
 }

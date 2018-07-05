@@ -3,23 +3,23 @@
  */
 
 class PlayList {
-    constructor({
+    constructor ({
         id,
         name,
         pic,
         creator,
         playNum
     }) {
-        this.id = id; //歌单id
-        this.name = name; //歌单名称
-        this.pic = pic; //歌单封面
-        this.creator = creator; //歌单创建者信息（头像、昵称、ID）
-        this.playNum = playNum; //播放数
+        this.id = id; // 歌单id
+        this.name = name; // 歌单名称
+        this.pic = pic; // 歌单封面
+        this.creator = creator; // 歌单创建者信息（头像、昵称、ID）
+        this.playNum = playNum; // 播放数
     }
 }
 
 // QQ
-function createQqPlayList(data) {
+function createQqPlayList (data) {
     return new PlayList({
         id: Number(data.dissid),
         name: data.dissname,
@@ -34,7 +34,7 @@ function createQqPlayList(data) {
 }
 
 // 网易
-function createNeteasePlayList(data) {
+function createNeteasePlayList (data) {
     return new PlayList({
         id: data.id,
         name: data.name,
@@ -48,7 +48,7 @@ function createNeteasePlayList(data) {
     })
 }
 
-module.exports = function formatPlayList(data, type) {
+module.exports = function formatPlayList (data, type) {
     let list = []
     if (type === 'QQ') {
         data.forEach(item => {

@@ -6,7 +6,7 @@ const {
 } = require('./song')
 
 class PlayListDetail {
-    constructor({
+    constructor ({
         id,
         name,
         pic,
@@ -20,22 +20,22 @@ class PlayListDetail {
         commentNum,
         songList
     }) {
-        this.id = id; //歌单ID
-        this.name = name; //歌单名称
-        this.pic = pic; //歌单封面
-        this.creator = creator; //歌单创建者信息（头像、昵称、ID）
-        this.createTime = createTime; //歌单创建时间
-        this.updateTime = updateTime; //歌单更新时间
-        this.desc = desc; //歌单描述
-        this.songNum = songNum; //歌曲数量
-        this.playNum = playNum; //播放数
-        this.shareNum = shareNum; //分享数
-        this.commentNum = commentNum; //评论数
-        this.songList = songList //歌曲列表
+        this.id = id; // 歌单ID
+        this.name = name; // 歌单名称
+        this.pic = pic; // 歌单封面
+        this.creator = creator; // 歌单创建者信息（头像、昵称、ID）
+        this.createTime = createTime; // 歌单创建时间
+        this.updateTime = updateTime; // 歌单更新时间
+        this.desc = desc; // 歌单描述
+        this.songNum = songNum; // 歌曲数量
+        this.playNum = playNum; // 播放数
+        this.shareNum = shareNum; // 分享数
+        this.commentNum = commentNum; // 评论数
+        this.songList = songList // 歌曲列表
     }
 }
 
-function formatPlayListDetail(data, type) {
+function formatPlayListDetail (data, type) {
     if (type === 'QQ') {
         return new PlayListDetail({
             id: Number(data.disstid),

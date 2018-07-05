@@ -3,7 +3,7 @@
  */
 
 class Banner {
-    constructor({
+    constructor ({
         id,
         link,
         pic
@@ -15,7 +15,7 @@ class Banner {
 }
 
 // QQ
-function createQqBanner(qq) {
+function createQqBanner (qq) {
     return new Banner({
         id: qq.id,
         link: qq.linkUrl,
@@ -24,7 +24,7 @@ function createQqBanner(qq) {
 }
 
 // 网易
-function createNeteaseBanner(net) {
+function createNeteaseBanner (net) {
     return new Banner({
         id: net.targetId,
         link: net.url,
@@ -32,7 +32,7 @@ function createNeteaseBanner(net) {
     })
 }
 
-function formatBanner(list, type) {
+function formatBanner (list, type) {
     let arr = [];
     if (type === 'QQ') {
         list.forEach(item => {

@@ -1,4 +1,4 @@
-'use strict'
+/* eslint-disable */
 const crypto = require('crypto')
 const bigInt = require('big-integer')
 const modulus =
@@ -64,3 +64,4 @@ function Encrypt(obj) {
 }
 
 module.exports = Encrypt
+/* eslint-enable */

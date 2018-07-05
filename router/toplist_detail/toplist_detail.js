@@ -6,8 +6,8 @@ const formatData = require('../../model/toplist_detail')
 // 排行榜详情
 
 module.exports = async (ctx, next) => {
-    const musicType = ctx.query.musicType || config.musicType,
-        httpFormat = ctx.query.format || config.format;
+    const musicType = ctx.query.musicType || config.musicType;
+    const httpFormat = ctx.query.format || config.format;
     if (musicType === QQ.mmConfig.musicType) {
         const params = Object.assign({}, QQ.commonParams, {
             topid: ctx.query.id,
@@ -28,9 +28,8 @@ module.exports = async (ctx, next) => {
             } else {
                 ctx.response.body = res
             }
-        }).catch(error => {
+        }).catch(() => {
             ctx.response.body = config.notFound
-            // console.log(error)
         })
     } else {
         ctx.redirect(`/playlist/detail?${ctx.querystring}`);

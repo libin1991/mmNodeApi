@@ -3,7 +3,7 @@ const querystring = require('querystring')
 const Encrypt = require('./crypto.js')
 
 // 随机生成浏览器标识
-function randomUserAgent() {
+function randomUserAgent () {
     const userAgentList = [
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
         'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1',
@@ -30,7 +30,7 @@ function randomUserAgent() {
 }
 
 // QQ请求配置
-function qqAxios(url, method, data) {
+function qqAxios (url, method, data) {
     const options = {
         url: url,
         method: method,
@@ -42,14 +42,12 @@ function qqAxios(url, method, data) {
         data: method === 'post' ? data : null,
         params: method === 'get' ? data : null
     };
-    console.log(
-        `[qqAxios] ${options.method} ${options.url}`
-    );
+    console.log(`[qqAxios] ${options.method} ${options.url}`);
     return axios(options)
 }
 
 // 网易请求配置
-function neteaseAxios(url, method, data, cookie) {
+function neteaseAxios (url, method, data, cookie) {
     // if (cookie.match(/_csrf=[^(;|$)]+;/g))
     //     data.csrf_token = cookie.match(/_csrf=[^(;|$)]+/g)[0].slice(6);
     // else data.csrf_token = '';
@@ -73,10 +71,9 @@ function neteaseAxios(url, method, data, cookie) {
             params: cryptoreq.params,
             encSecKey: cryptoreq.encSecKey
         })
-        // proxy: proxy
     };
     console.log(
-        `[neteaseAxios] ${options.method} ${options.url} proxy:${options.proxy}`
+        `[neteaseAxios] ${options.method} ${options.url}`
     );
     return axios(options)
 }

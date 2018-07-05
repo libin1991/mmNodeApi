@@ -7,8 +7,8 @@ const formatData = require('../../model/playlist')
 // 分类歌单
 
 module.exports = async (ctx, next) => {
-    const musicType = ctx.query.musicType || config.musicType,
-        httpFormat = ctx.query.format || config.format;
+    const musicType = ctx.query.musicType || config.musicType
+    const httpFormat = ctx.query.format || config.format;
     if (musicType === QQ.mmConfig.musicType) {
         const params = Object.assign({}, QQ.commonParams, {
             picmid: 1,
@@ -39,16 +39,15 @@ module.exports = async (ctx, next) => {
             } else {
                 ctx.response.body = res
             }
-        }).catch(error => {
+        }).catch(() => {
             ctx.response.body = config.notFound
-            // console.log(e)
         })
     } else {
         const params = {
-            cat: ctx.query.cat || "全部",
-            order: ctx.query.order || "hot",
+            cat: ctx.query.cat || '全部',
+            order: ctx.query.order || 'hot',
             offset: ctx.query.offset || 0,
-            total: ctx.query.total ? "true" : "false",
+            total: ctx.query.total ? 'true' : 'false',
             limit: ctx.query.limit || 20
         }
         await axios.netease('http://music.163.com/weapi/playlist/list', 'post', params).then(res => {
@@ -62,7 +61,7 @@ module.exports = async (ctx, next) => {
             } else {
                 ctx.response.body = res
             }
-        }).catch(error => {
+        }).catch(() => {
             ctx.response.body = config.notFound
         })
     }

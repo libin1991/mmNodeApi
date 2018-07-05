@@ -3,21 +3,21 @@
  */
 
 class TopList {
-    constructor({
+    constructor ({
         id,
         pic,
-        title,
+        name,
         songList
     }) {
         this.id = id; // id
         this.pic = pic; // 图片
-        this.title = title; // 标题
+        this.name = name; // 标题
         this.songList = songList // 热门歌曲列表
     }
 }
 
 class SongList {
-    constructor({
+    constructor ({
         song,
         singer
     }) {
@@ -26,9 +26,9 @@ class SongList {
     }
 }
 
-function formatSongList(list,type) {
+function formatSongList (list, type) {
     let arr = [];
-    if (type === 'QQ'){
+    if (type === 'QQ') {
         list.forEach(item => {
             arr.push(new SongList({
                 song: item.songname,
@@ -47,28 +47,28 @@ function formatSongList(list,type) {
 }
 
 // QQ
-function createQqTopList(qq) {
-    const songList = formatSongList(qq.songList,'QQ')
+function createQqTopList (qq) {
+    const songList = formatSongList(qq.songList, 'QQ')
     return new TopList({
         id: qq.id,
         pic: qq.picUrl,
-        title: qq.topTitle,
-        songList,
-    })
-}
-
-// 网易
-function createNeteaseTopList(net) {
-    const songList = formatSongList(net.tracks)
-    return new TopList({
-        id: net.id,
-        pic: net.coverImgUrl,
-        title: net.name,
+        name: qq.topTitle,
         songList
     })
 }
 
-function formatTopList(list, type) {
+// 网易
+function createNeteaseTopList (net) {
+    const songList = formatSongList(net.tracks)
+    return new TopList({
+        id: net.id,
+        pic: net.coverImgUrl,
+        name: net.name,
+        songList
+    })
+}
+
+function formatTopList (list, type) {
     let arr = [];
     if (type === 'QQ') {
         list.forEach(item => {

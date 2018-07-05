@@ -9,8 +9,8 @@ const {
 // 歌单详情
 
 module.exports = async (ctx, next) => {
-    const musicType = ctx.query.musicType || config.musicType,
-        httpFormat = ctx.query.format || config.format;
+    const musicType = ctx.query.musicType || config.musicType;
+    const httpFormat = ctx.query.format || config.format;
     if (musicType === QQ.mmConfig.musicType) {
         const params = Object.assign({}, QQ.commonParams, {
             disstid: ctx.query.id,
@@ -32,19 +32,17 @@ module.exports = async (ctx, next) => {
             } else {
                 ctx.response.body = res
             }
-        }).catch(error => {
+        }).catch(() => {
             ctx.response.body = config.notFound
-            // console.log(e)
         })
     } else {
         const params = {
             id: ctx.query.id,
             n: 100000,
             s: ctx.query.s || 8,
-            csrf_token: ""
+            csrf_token: ''
         }
         await axios.netease('http://music.163.com/weapi/v3/playlist/detail', 'post', params).then(res => {
-            
             // console.log('cookies',ctx.cookies)
             // console.log(res.playlist)
             if (res.code === Netease.HTTP_OK) {
@@ -59,7 +57,7 @@ module.exports = async (ctx, next) => {
             } else {
                 ctx.response.body = res
             }
-        }).catch(error => {
+        }).catch(() => {
             ctx.response.body = config.notFound
         })
     }

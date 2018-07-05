@@ -1,14 +1,8 @@
 // 成功状态码
-const HTTP_OK = 0
-
-// header
-const headers = {
-    referer: 'https://c.y.qq.com/',
-    host: 'c.y.qq.com'
-}
+exports.HTTP_OK = 0;
 
 // 请求参数
-const commonParams = {
+exports.commonParams = {
     g_tk: 1928093487,
     inCharset: 'utf-8',
     outCharset: 'utf-8',
@@ -17,19 +11,12 @@ const commonParams = {
 }
 
 // 请求参数
-const options = {
+exports.options = {
     param: 'jsonpCallback',
     prefix: 'jp'
 }
 
-const mmConfig = {
+exports.mmConfig = {
     code: 200,
     musicType: 'QQ'
-}
-
-module.exports = {
-    HTTP_OK,
-    commonParams,
-    options,
-    mmConfig
 }

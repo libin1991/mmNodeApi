@@ -3,7 +3,7 @@
  */
 
 class Song {
-    constructor({
+    constructor ({
         id,
         mid,
         name,
@@ -13,18 +13,18 @@ class Song {
         duration,
         musicType
     }) {
-        this.id = id; //歌曲ID
-        this.mid = mid; //歌曲ID
-        this.name = name; //歌曲名称
-        this.singer = singer; //歌手
-        this.album = album; //专辑
-        this.pic = pic; //封面图
-        this.duration = duration; //时长
+        this.id = id; // 歌曲ID
+        this.mid = mid; // 歌曲ID
+        this.name = name; // 歌曲名称
+        this.singer = singer; // 歌手
+        this.album = album; // 专辑
+        this.pic = pic; // 封面图
+        this.duration = duration; // 时长
         this.musicType = musicType
     }
 }
 
-function filterSinger(singers) {
+function filterSinger (singers) {
     let arr = [];
     singers.forEach(item => {
         arr.push(item.name)
@@ -32,7 +32,7 @@ function filterSinger(singers) {
     return arr.join('/')
 }
 
-function createNeteaseSongs(music) {
+function createNeteaseSongs (music) {
     return new Song({
         id: music.id,
         mid: music.id,
@@ -45,7 +45,7 @@ function createNeteaseSongs(music) {
     })
 }
 
-function createQqSongs(music) {
+function createQqSongs (music) {
     return new Song({
         id: music.songid,
         mid: music.songmid,
@@ -59,7 +59,7 @@ function createQqSongs(music) {
 }
 
 // 歌曲数据格式化
-function formatSongs(data, type) {
+function formatSongs (data, type) {
     let Songs = [];
     if (type === 'QQ') {
         data.forEach(item => {
