@@ -24,25 +24,25 @@ function randomUserAgent () {
         'Mozilla/5.0 (Windows NT 6.3; Win64, x64; Trident/7.0; rv:11.0) like Gecko',
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/13.10586',
         'Mozilla/5.0 (iPad; CPU OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A300 Safari/602.1'
-    ];
-    const num = Math.floor(Math.random() * userAgentList.length);
-    return userAgentList[num];
+    ]
+    const num = Math.floor(Math.random() * userAgentList.length)
+    return userAgentList[num]
 }
 
 // QQ请求配置
-function qqAxios (url, method, data) {
+function qqAxios (url, method, data, headers) {
     const options = {
         url: url,
         method: method,
-        headers: {
+        headers: headers || {
             Referer: 'https://c.y.qq.com/',
             Host: 'c.y.qq.com',
             'User-Agent': randomUserAgent()
         },
         data: method === 'post' ? data : null,
         params: method === 'get' ? data : null
-    };
-    console.log(`[qqAxios] ${options.method} ${options.url}`);
+    }
+    console.log(`[qqAxios] ${options.method} ${options.url}`)
     return axios(options)
 }
 
@@ -53,7 +53,7 @@ function neteaseAxios (url, method, data, cookie) {
     // else data.csrf_token = '';
     // const proxy = cookie.split('__proxy__')[1];
     // cookie = cookie.split('__proxy__')[0];
-    const cryptoreq = Encrypt(data);
+    const cryptoreq = Encrypt(data)
     const options = {
         url: url,
         method: method,
@@ -71,10 +71,8 @@ function neteaseAxios (url, method, data, cookie) {
             params: cryptoreq.params,
             encSecKey: cryptoreq.encSecKey
         })
-    };
-    console.log(
-        `[neteaseAxios] ${options.method} ${options.url}`
-    );
+    }
+    console.log(`[neteaseAxios] ${options.method} ${options.url}`)
     return axios(options)
 }
 

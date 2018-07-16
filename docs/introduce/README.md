@@ -12,6 +12,15 @@
 
 跨站请求伪造 (CSRF)，伪造请求头， 调用官方 API
 
+## 技术栈
+
+* koa （Koa2 主框架）
+* koa-router （路由）
+* koa-bodyparser（解析 POST 请求参数）
+* koa2-cors（解决跨域访问）
+* axios（网络请求）
+* ES6 / 7 （JavaScript 语言的下一代标准）
+
 ## 感谢
 
 [网易云音乐 NodeJS 版 API](https://binaryify.github.io/NeteaseCloudMusicApi)
@@ -23,6 +32,7 @@
 * 排行榜详情
 * 分类歌单
 * 歌单详情
+* 获取音乐URL
 
 
 ## License

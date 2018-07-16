@@ -1,5 +1,5 @@
 // 成功状态码
-exports.HTTP_OK = 0;
+exports.HTTP_OK = 0
 
 // 请求参数
 exports.commonParams = {
@@ -20,3 +20,6 @@ exports.mmConfig = {
     code: 200,
     musicType: 'QQ'
 }
+
+// 随机生成Guid
+exports.getGuid = () => '' + (Math.round(Math.random() * 1e10) * new Date().getUTCMilliseconds()) % 1e9

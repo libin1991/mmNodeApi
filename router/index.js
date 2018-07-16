@@ -18,4 +18,7 @@ router.get('/playlist/detail', require('./playlist_detail/playlist_detail'))
 // 搜索
 router.get('/search', require('./search/search'))
 
+// 歌曲url
+router.post('/music/url', require('./music_url/music_url'))
+
 module.exports = router

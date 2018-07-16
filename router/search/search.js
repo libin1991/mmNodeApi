@@ -6,7 +6,7 @@ const formatTopList = require('../../model/toplist')
 
 // 搜索
 
-const search = async (ctx, next) => {
+module.exports = async (ctx, next) => {
     const musicType = ctx.query.musicType || config.musicType;
     const httpFormat = ctx.query.format || config.format;
     const keywords = ctx.query.keywords;
@@ -100,5 +100,3 @@ const search = async (ctx, next) => {
         })
     }
 }
-
-module.exports = search
