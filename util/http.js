@@ -30,7 +30,7 @@ function randomUserAgent () {
 }
 
 // QQ请求配置
-function qqAxios (url, method, data, headers) {
+function qqAxios (url, method, data, headers = null) {
     const options = {
         url: url,
         method: method,
@@ -47,7 +47,7 @@ function qqAxios (url, method, data, headers) {
 }
 
 // 网易请求配置
-function neteaseAxios (url, method, data, cookie) {
+function neteaseAxios (url, method, data) {
     // if (cookie.match(/_csrf=[^(;|$)]+;/g))
     //     data.csrf_token = cookie.match(/_csrf=[^(;|$)]+/g)[0].slice(6);
     // else data.csrf_token = '';

@@ -21,4 +21,7 @@ router.get('/search', require('./search/search'))
 // 歌曲url
 router.post('/music/url', require('./music_url/music_url'))
 
+// 歌词
+router.get('/lyric', require('./lyric/lyric'))
+
 module.exports = router
