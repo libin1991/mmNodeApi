@@ -39,8 +39,9 @@ function qqAxios (url, method, data, headers = null) {
             Host: 'c.y.qq.com',
             'User-Agent': randomUserAgent()
         },
-        data: method === 'post' ? data : null,
-        params: method === 'get' ? data : null
+        [`${method === 'get' ? 'params' : 'data'}`]: data
+        // data: method === 'post' ? data : null,
+        // params: method === 'get' ? data : null
     }
     console.log(`[qqAxios] ${options.method} ${options.url}`)
     return axios(options)

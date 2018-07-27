@@ -6,11 +6,16 @@ const formatData = require('../../model/toplist_detail')
 // 排行榜详情
 
 module.exports = async (ctx, next) => {
-    const musicType = ctx.query.musicType || config.musicType;
-    const httpFormat = ctx.query.format || config.format;
+    const musicType = ctx.query.musicType || config.musicType
+    const httpFormat = ctx.query.format || config.format
+    const id = ctx.query.id
+    if (!id) {
+        ctx.response.body = config.notData
+        return false
+    }
     if (musicType === QQ.mmConfig.musicType) {
         const params = Object.assign({}, QQ.commonParams, {
-            topid: ctx.query.id,
+            topid: id,
             needNewCode: 1,
             uin: 0,
             tpl: 3,
@@ -18,20 +23,23 @@ module.exports = async (ctx, next) => {
             type: 'top',
             platform: 'yqq'
         })
-        await axios.qq('https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg', 'get', params).then(res => {
-            if (res.code === QQ.HTTP_OK) {
-                const data = httpFormat === 'open' ? formatData(res) : res;
-                ctx.response.body = {
-                    data,
-                    ...QQ.mmConfig
+        await axios
+            .qq('https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg', 'get', params)
+            .then(res => {
+                if (res.code === QQ.HTTP_OK) {
+                    const data = httpFormat === 'open' ? formatData(res) : res
+                    ctx.response.body = {
+                        data,
+                        ...QQ.mmConfig
+                    }
+                } else {
+                    ctx.response.body = res
                 }
-            } else {
-                ctx.response.body = res
-            }
-        }).catch(() => {
-            ctx.response.body = config.notFound
-        })
+            })
+            .catch(() => {
+                ctx.response.body = config.notFound
+            })
     } else {
-        ctx.redirect(`/playlist/detail?${ctx.querystring}`);
+        ctx.redirect(`/playlist/detail?${ctx.querystring}`)
     }
 }

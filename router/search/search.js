@@ -7,14 +7,14 @@ const formatTopList = require('../../model/toplist')
 // 搜索
 
 module.exports = async (ctx, next) => {
-    const musicType = ctx.query.musicType || config.musicType;
-    const httpFormat = ctx.query.format || config.format;
-    const keywords = ctx.query.keywords;
-    const type = Number(ctx.query.type) || 1;
-    const page = Number(ctx.query.page) || 1;
-    const limit = Number(ctx.query.limit) || 20;
-    if (!ctx.query.keywords) {
-        ctx.response.body = config.notData;
+    const musicType = ctx.query.musicType || config.musicType
+    const httpFormat = ctx.query.format || config.format
+    const keywords = ctx.query.keywords
+    const type = Number(ctx.query.type) || 1
+    const page = Number(ctx.query.page) || 1
+    const limit = Number(ctx.query.limit) || 20
+    if (!keywords) {
+        ctx.response.body = config.notData
         return false
     }
     if (musicType === QQ.mmConfig.musicType) {
@@ -55,48 +55,54 @@ module.exports = async (ctx, next) => {
                 platform: 'yqq',
                 needNewCode: 0
             },
-            1002: {
-
-            }
+            1002: {}
         }
         let params = paramsData[type] ? paramsData[type] : paramsData[1]
         params = Object.assign({}, QQ.commonParams, params)
-        await axios.qq(url, 'get', params).then(res => {
-            if (res.code === QQ.HTTP_OK) {
-                let data;
-                if (type === 1000) {
-                    data = res
+        await axios
+            .qq(url, 'get', params)
+            .then(res => {
+                if (res.code === QQ.HTTP_OK) {
+                    // let data
+                    // if (type === 1000) {
+                    //     data = res
+                    // } else {
+                    //     data = res
+                    // }
+                    const data = httpFormat === 'open' ? formatTopList(res.data.topList, 'QQ') : res.data.topList
+                    ctx.response.body = {
+                        data,
+                        type,
+                        ...QQ.mmConfig
+                    }
                 } else {
-                    data = res
+                    ctx.response.body = res
                 }
-                // const data = httpFormat === 'open' ? formatTopList(res.data.topList, 'QQ') : res.data.topList;
-                ctx.response.body = {
-                    data,
-                    type,
-                    ...QQ.mmConfig
-                }
-            } else {
-                ctx.response.body = res
-            }
-        }).catch(() => {
-            ctx.response.body = config.notFound
-        })
+            })
+            .catch(() => {
+                ctx.response.body = config.notFound
+            })
     } else {
         const data = {
+            s: keywords,
+            type: type,
             csrf_token: ''
         }
-        await axios.netease('http://music.163.com/weapi/toplist/detail', 'post', data).then(res => {
-            if (res.code === Netease.HTTP_OK) {
-                const topList = httpFormat === 'open' ? formatTopList(res.list, '163') : res.list;
-                ctx.response.body = {
-                    topList,
-                    ...Netease.mmConfig
+        await axios
+            .netease('http://music.163.com/weapi/cloudsearch/get/web', 'post', data)
+            .then(res => {
+                if (res.code === Netease.HTTP_OK) {
+                    // const topList = httpFormat === 'open' ? formatTopList(res.list, '163') : res.list;
+                    ctx.response.body = {
+                        data: res,
+                        ...Netease.mmConfig
+                    }
+                } else {
+                    ctx.response.body = res
                 }
-            } else {
-                ctx.response.body = res
-            }
-        }).catch(() => {
-            ctx.response.body = config.notFound
-        })
+            })
+            .catch(() => {
+                ctx.response.body = config.notFound
+            })
     }
 }

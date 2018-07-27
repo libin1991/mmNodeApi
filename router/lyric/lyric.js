@@ -14,7 +14,10 @@ module.exports = async (ctx, next) => {
     const musicType = ctx.query.musicType || config.musicType
     const httpFormat = ctx.query.format || config.format
     const id = ctx.query.id
-    // console.log(ctx.request.body)
+    if (!id) {
+        ctx.response.body = config.notData
+        return false
+    }
     if (musicType === QQ.mmConfig.musicType) {
         const params = Object.assign({}, QQ.commonParams, {
             songmid: id,
