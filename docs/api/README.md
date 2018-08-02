@@ -4,7 +4,7 @@
 
 ## banner（轮播图）
 
-获取banner( 轮播图 ) 
+获取banner( 轮播图 )
 
 ##### 请求类型: `get`
 
@@ -157,6 +157,23 @@
 ##### 更新日期: 2018.07.18
 
 
+## 热搜
+
+获取热门搜索信息
+
+##### 请求类型: `get`
+
+##### 接口地址: `/search/hot`
+
+##### 调用例子: `/search/hot?musicType=163`
+
+![调用例子](/images/search_hot.png)
+
+##### 支持平台: 网易云音乐、QQ音乐
+
+##### 更新日期: 2018.08.02
+
+
 
 ## 接口通用参数
 
@@ -185,8 +202,6 @@
 | `type` | 1 | 1: 单曲 | `false` | 搜索类型 |
 | `limit` | 30 |  | `false` | 返回数量 |
 | `page` | 0 |  | `false` | 页码(offset) |
-| `musicType` | `163` | `163` / `QQ` | `false` | 音乐平台 |
-| `format` | `open` | `open` / `close` | `false` | 接口格式化 |
 
 ##### 接口地址: `/search`
 
