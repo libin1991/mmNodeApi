@@ -1,4 +1,4 @@
-exports.musicType = process.env.musicType || 'QQ'
+exports.musicType = process.env.musicType || 'QQ';
 
 /**
  * 是否格式化字段
@@ -10,7 +10,10 @@ exports.format = 'open';
 exports.notFound = {
     message: 'not found',
     code: 404
-}
+};
 
 // 参数不全
-exports.notData = '请求参数不完整'
+exports.notData = {
+    message: '请求参数不完整',
+    code: 400
+};

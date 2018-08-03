@@ -1,108 +1,115 @@
-const axios = require('../../util/http')
-const QQ = require('../../config/qq')
-const Netease = require('../../config/netease')
-const config = require('../../config/index')
-const formatTopList = require('../../model/toplist')
+const axios = require('../../util/http');
+const QQ = require('../../config/qq');
+const Netease = require('../../config/netease');
+const config = require('../../config/index');
+const formatData = require('../../model/search');
 
 // 搜索
 
 module.exports = async (ctx, next) => {
-    const musicType = ctx.query.musicType || config.musicType
-    const httpFormat = ctx.query.format || config.format
-    const keywords = ctx.query.keywords
-    const type = Number(ctx.query.type) || 1
-    const page = Number(ctx.query.page) || 1
-    const limit = Number(ctx.query.limit) || 20
+    const musicType = ctx.query.musicType || config.musicType;
+    const httpFormat = ctx.query.format || config.format;
+    const keywords = ctx.query.keywords; // 搜索关键词
+    /**
+     * 搜索类型
+     * 1：单曲
+     */
+    const type = parseInt(ctx.query.type, 10) || 1;
+    const page = parseInt(ctx.query.page, 10) || 1; // 页码
+    const limit = parseInt(ctx.query.limit, 10) || 20; // 每页数量
     if (!keywords) {
-        ctx.response.body = config.notData
-        return false
+        ctx.response.body = config.notData;
+        return false;
     }
     if (musicType === QQ.mmConfig.musicType) {
         const urlData = {
-            1: 'https://c.y.qq.com/soso/fcgi-bin/client_search_cp',
-            1000: 'https://c.y.qq.com/soso/fcgi-bin/client_music_search_songlist',
-            1002: 'https://c.y.qq.com/soso/fcgi-bin/client_search_user'
-        }
-        const url = urlData[type] ? urlData[type] : urlData[1]
+            1: 'https://c.y.qq.com/soso/fcgi-bin/client_search_cp' // 单曲
+        };
+        const url = urlData[type] ? urlData[type] : urlData[1];
         const paramsData = {
+            // 单曲
             1: {
                 w: keywords,
                 p: page,
                 perpage: limit,
                 n: limit,
-                catZhida: 0,
-                zhidaqu: 1,
+                catZhida: 1,
                 t: type === 1 ? 0 : type,
                 flag: 1,
-                ie: 'utf-8',
                 sem: 1,
-                aggr: 0,
+                aggr: 1,
                 remoteplace: 'txt.mqq.all',
                 uin: 0,
-                needNewCode: 1,
-                platform: 'yqq'
-            },
-            1000: {
-                remoteplace: 'sizer.yqq.playlist_next',
-                searchid: 44614488231867797,
-                flag_qc: 0,
-                page_no: page,
-                num_per_page: limit + 1,
-                query: keywords,
-                jsonpCallback: 'jsonpCallback',
-                loginUin: 0,
-                hostUin: 0,
+                needNewCode: 0,
                 platform: 'yqq',
-                needNewCode: 0
-            },
-            1002: {}
-        }
-        let params = paramsData[type] ? paramsData[type] : paramsData[1]
-        params = Object.assign({}, QQ.commonParams, params)
+                new_json: 1
+            }
+        };
+        let params = paramsData[type];
+        params = Object.assign({}, QQ.commonParams, params);
         await axios
             .qq(url, 'get', params)
             .then(res => {
                 if (res.code === QQ.HTTP_OK) {
-                    // let data
-                    // if (type === 1000) {
-                    //     data = res
-                    // } else {
-                    //     data = res
-                    // }
-                    const data = httpFormat === 'open' ? formatTopList(res.data.topList, 'QQ') : res.data.topList
+                    let data, songNum;
+                    if (type === 1) {
+                        const { list, totalnum } = res.data.song;
+                        data = httpFormat === 'open' ? formatData(list, 'QQ', 'song') : list;
+                        songNum = totalnum;
+                    } else {
+                        data = res;
+                    }
                     ctx.response.body = {
-                        data,
+                        data: {
+                            list: data,
+                            songNum,
+                            type,
+                            keywords
+                        },
                         type,
                         ...QQ.mmConfig
-                    }
+                    };
                 } else {
-                    ctx.response.body = res
+                    ctx.response.body = res;
                 }
             })
             .catch(() => {
-                ctx.response.body = config.notFound
-            })
+                ctx.response.body = config.notFound;
+            });
     } else {
         const data = {
             s: keywords,
-            type: type,
-            csrf_token: ''
-        }
+            csrf_token: '',
+            offset: (page - 1) * limit,
+            limit,
+            type
+        };
         await axios
-            .netease('http://music.163.com/weapi/cloudsearch/get/web', 'post', data)
+            .netease('https://music.163.com/weapi/cloudsearch/get/web', 'post', data)
             .then(res => {
                 if (res.code === Netease.HTTP_OK) {
-                    // const topList = httpFormat === 'open' ? formatTopList(res.list, '163') : res.list;
-                    ctx.response.body = {
-                        data: res,
-                        ...Netease.mmConfig
+                    let data, songNum;
+                    if (type === 1) {
+                        // 单曲
+                        const { songs, songCount } = res.result;
+                        data = httpFormat === 'open' ? formatData(songs, '163', 'song') : songs;
+                        songNum = songCount;
                     }
+                    ctx.response.body = {
+                        data: {
+                            list: data,
+                            songNum,
+                            type,
+                            keywords
+                        },
+                        ...Netease.mmConfig
+                    };
                 } else {
-                    ctx.response.body = res
+                    ctx.response.body = res;
                 }
             })
             .catch(() => {
-                ctx.response.body = config.notFound
-            })
+                ctx.response.body = config.notFound;
+            });
     }
-}
+};
